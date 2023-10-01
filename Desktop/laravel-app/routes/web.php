@@ -13,12 +13,15 @@ Route::get('/', function () {
 });
 // Auth section
 Route::get('login', [LoginController::class, 'loginForm']);
+Route::post('login', [LoginController::class, 'login'])->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
 Route::get('registration', [RegistrationController::class, 'registerForm']);
 Route::post('registration', [RegistrationController::class, 'register'])->name('register-submit');
 
 //Admin section
 Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [DashboardController::class, "dashboard"]);
+    Route::get('dashboard', [DashboardController::class, "dashboard"])->name('dashboard');
     Route::resource('category', CategoryController::class);
     Route::resource('post', PostController::class);
 });
