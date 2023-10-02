@@ -12,7 +12,11 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-
+                                    @if(session()->has('message'))
+                                    <div class="alert alert-success">
+                                        {{ session('message') }}
+                                    </div>
+                                    @endif
                                     @if ($errors->any())
                                     <div class="alert alert-error">
                                         <ul>

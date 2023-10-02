@@ -18,6 +18,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('registration', [RegistrationController::class, 'registerForm']);
 Route::post('registration', [RegistrationController::class, 'register'])->name('register-submit');
+Route::get('verificationEmailUseToken/{token}', [RegistrationController::class, 'verifyEmail'])->name('verify-emil');
 
 //Admin section
 Route::prefix('admin')->group(function () {
