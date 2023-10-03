@@ -12,9 +12,11 @@
 
 <body>
     <main class="container">
-        <p>Hello </p>
+        <p>Hello {{ $user->name }} </p>
         <p>Your account has been created . Please click the following to activate your account</p>
-
+        <a href="{{ url('verificationEmailUseToken',$user->remember_token) }}">
+            {{ $user->remember_token }}
+        </a>
         <br />
         <p>Thanks </p>
 
