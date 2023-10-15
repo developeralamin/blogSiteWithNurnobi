@@ -26,6 +26,7 @@ class LoginController extends Controller
             'password' => $request->password
         ]);
         if ($user) {
+            // $user = Auth::user();
             $user = Auth::user();
             if ($user->email_verified_at) {
                 return redirect()->route('dashboard');

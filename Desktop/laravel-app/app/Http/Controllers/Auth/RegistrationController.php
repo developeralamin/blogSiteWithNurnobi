@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
-use App\Mail\SendVerificationMail;
+use App\Mail\EmailVerification;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -32,11 +32,10 @@ class RegistrationController extends Controller
         $user->name             = $request->name;
         $user->email            = $request->email;
         $user->password         = Hash::make($request->password);
-        $user->remember_token   = $token;
+        $user->email_verification_token = $token;
         $user->save();
 
-        Mail::to($user->email)->send(new SendVerificationMail($user));
-        /* Mail::to($user->email)->send(new VerificationMail($user)); */
+        Mail::to($user->email)->send(new EmailVerification($user));
 
         Session::flash('message', 'Registration successfully done');
         Session::flash('alert-class', 'alert-danger');
@@ -48,12 +47,13 @@ class RegistrationController extends Controller
      * 
      * @return #token
      */
-    public function verifyEmail($token)
+    public function verify($token)
     {
-        $userToken = User::where('remember_token', $token)->first();
+        $userToken =  User::where('email_verification_token', $token)->first();
         if ($userToken) {
-            $userToken->remember_token = null;
+            $userToken->email_verification_token = null;
             $userToken->email_verified_at = Carbon::now();
+
             $userToken->save();
 
             session()->flash('message', "Your email  is verified");
