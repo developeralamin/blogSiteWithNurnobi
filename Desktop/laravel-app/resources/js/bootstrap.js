@@ -4,10 +4,10 @@
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import axios from 'axios';
+import axios from "axios";
 window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -30,3 +30,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
 //     enabledTransports: ['ws', 'wss'],
 // });
+
+// resources/assets/js/bootstrap.js
+
+import Echo from "laravel-echo";
+
+window.Echo = new Echo({
+    broadcaster: "pusher",
+    key: "6ff118b229384d54b48b",
+    cluster: "ap2",
+    encrypted: true,
+});

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.registration');
 });
 // Auth section
 Route::get('login', [LoginController::class, 'loginForm']);
@@ -19,7 +19,7 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('registration', [RegistrationController::class, 'registerForm']);
 Route::post('registration', [RegistrationController::class, 'register'])->name('register-submit');
-Route::get('verify-email/{token}', [RegistrationController::class, 'verify']);
+Route::get('verify-email/{token}', [RegistrationController::class, 'verify'])->name('verification');
 
 //Admin section
 Route::prefix('admin')->group(function () {

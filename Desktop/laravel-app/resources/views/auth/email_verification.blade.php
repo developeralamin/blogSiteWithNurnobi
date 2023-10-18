@@ -16,7 +16,7 @@
         <p>Email {{ $user->email }} </p>
         <p>Your account has been created . Please click the following to activate your account</p>
         <a href="{{ url('verify-email',$user->email_verification_token) }}">
-            {{ $user->email_verification_token }}
+            {{ url('verify-email',$user->email_verification_token) }}
         </a>
         <br />
         <p>Thanks </p>

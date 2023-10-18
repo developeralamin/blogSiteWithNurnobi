@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
-use App\Mail\EmailVerification;
 use App\Models\User;
+use App\Notifications\VerifyMailNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
@@ -35,7 +34,9 @@ class RegistrationController extends Controller
         $user->email_verification_token = $token;
         $user->save();
 
-        Mail::to($user->email)->send(new EmailVerification($user));
+        // Mail::to($user->email)->send(new EmailVerification($user));
+        $user->notify(new VerifyMailNotification($user));
+
 
         Session::flash('message', 'Registration successfully done');
         Session::flash('alert-class', 'alert-danger');
